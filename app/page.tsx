@@ -39,7 +39,7 @@ const features = [
     icon: LayoutDashboard,
     title: "Manage All Links",
     description:
-      "View, edit, and delete all your links from a single, organised dashboard.",
+      "View, edit, and delete all your links from a single, organized dashboard.",
   },
   {
     icon: Zap,
