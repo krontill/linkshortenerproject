@@ -123,7 +123,7 @@ export default function Home() {
             <div key={number} className="flex flex-col items-center gap-3 text-center">
               <div className="relative flex h-14 w-14 items-center justify-center rounded-full border-2 border-border bg-muted">
                 <Icon className="h-6 w-6" />
-                <span className="bg-primary text-primary-foreground absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold">
+                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
                   {number}
                 </span>
               </div>
