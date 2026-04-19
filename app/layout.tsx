@@ -45,6 +45,16 @@ export default function RootLayout({
             </Show>
           </header>
           {children}
+          <footer className="mt-auto border-t py-6">
+            <div className="flex flex-col items-center gap-1 text-center">
+              <p className="text-muted-foreground text-sm">
+                © {new Date().getFullYear()} Link Shortener. All rights reserved.
+              </p>
+              <p className="text-muted-foreground text-xs">
+                Shorten smarter. Share faster. Track everything.
+              </p>
+            </div>
+          </footer>
         </ClerkProvider>
       </body>
     </html>
