@@ -14,6 +14,9 @@ import {
   LayoutDashboard,
   Zap,
   ShieldCheck,
+  UserPlus,
+  ClipboardPaste,
+  MousePointerClick,
 } from "lucide-react";
 
 const features = [
@@ -55,6 +58,37 @@ const features = [
   },
 ];
 
+const steps = [
+  {
+    number: 1,
+    icon: UserPlus,
+    title: "Create a free account",
+    description:
+      "Sign up in seconds — no credit card required.",
+  },
+  {
+    number: 2,
+    icon: ClipboardPaste,
+    title: "Paste your long URL",
+    description:
+      "Drop any URL into the dashboard and we'll generate a short link instantly.",
+  },
+  {
+    number: 3,
+    icon: Link2,
+    title: "Share your short link",
+    description:
+      "Copy the compact link and share it anywhere — social media, email, or messages.",
+  },
+  {
+    number: 4,
+    icon: MousePointerClick,
+    title: "Watch the clicks roll in",
+    description:
+      "Monitor click counts in real time from your personal dashboard.",
+  },
+];
+
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col items-center">
@@ -76,6 +110,27 @@ export default function Home() {
               Sign in
             </Button>
           </SignInButton>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="w-full max-w-5xl px-4 pb-24">
+        <h2 className="mb-10 text-center text-3xl font-semibold tracking-tight">
+          How it works
+        </h2>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map(({ number, icon: Icon, title, description }) => (
+            <div key={number} className="flex flex-col items-center gap-3 text-center">
+              <div className="relative flex h-14 w-14 items-center justify-center rounded-full border-2 border-border bg-muted">
+                <Icon className="h-6 w-6" />
+                <span className="bg-primary text-primary-foreground absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold">
+                  {number}
+                </span>
+              </div>
+              <h3 className="font-semibold">{title}</h3>
+              <p className="text-muted-foreground text-sm">{description}</p>
+            </div>
+          ))}
         </div>
       </section>
 
