@@ -105,11 +105,6 @@ export default function Home() {
           <SignUpButton mode="modal">
             <Button size="lg">Get started free</Button>
           </SignUpButton>
-          <SignInButton mode="modal">
-            <Button variant="outline" size="lg">
-              Sign in
-            </Button>
-          </SignInButton>
         </div>
       </section>
 
