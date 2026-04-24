@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { getLinksByUserId } from "@/data/links";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LinkIcon } from "lucide-react";
+import { CreateLinkForm } from "./components/create-link-form/CreateLinkForm";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
@@ -9,7 +10,10 @@ export default async function DashboardPage() {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Your Links</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">Your Links</h1>
+        <CreateLinkForm />
+      </div>
       {links.length === 0 ? (
         <p className="text-muted-foreground">You have no links yet.</p>
       ) : (
