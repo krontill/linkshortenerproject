@@ -1,3 +1,7 @@
+---
+description: Read this file before implementing any UI-related features. It describes the UI framework used in this project and the coding standards to follow when building UI components.
+---
+
 # UI Components — shadcn/ui
 
 All UI elements in this project use **shadcn/ui** exclusively. Do **not** create custom components.

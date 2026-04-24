@@ -1,3 +1,7 @@
+---
+description: Read this file to understand how authentication works in this project and the coding standards to follow when implementing auth-related features.
+---
+
 # Authentication — Clerk
 
 All authentication in this project is handled exclusively by **Clerk v7** (`@clerk/nextjs`). Do **not** implement any other auth method (NextAuth, custom JWT, sessions, etc.).
