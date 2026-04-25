@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -50,6 +51,7 @@ export function CreateLinkForm() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create a new link</DialogTitle>
+          <DialogDescription>Enter a destination URL and a custom slug for your shortened link.</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
