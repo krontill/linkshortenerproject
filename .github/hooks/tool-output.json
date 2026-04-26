@@ -4,7 +4,7 @@
     "postToolUse": [
       {
         "type": "command",
-        "powershell": "$data = [Console]::In.ReadToEnd() | ConvertFrom-Json; New-Item -ItemType Directory -Force -Path tmp | Out-Null; $name = if ($data.toolName) { $data.toolName } else { 'unknown' }; $entry = \"`n[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')]`nInput: $($data.toolArgs)`nOutput: $($data.toolResult.textResultForLlm)`n---\"; Add-Content -Path \"tmp/$name.txt\" -Value $entry"
+        "powershell": "& .github/hooks/tool-output.ps1"
       }
     ]
   }

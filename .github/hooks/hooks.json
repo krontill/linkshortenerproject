@@ -13,7 +13,8 @@
     "postToolUse": [
       {
         "type": "command",
-        "powershell": "npx prettier --write ."
+        "bash": "bash .github/hooks/post-tool-use.sh",
+        "powershell": "& .github/hooks/post-tool-use.ps1"
       }
     ]
   }
