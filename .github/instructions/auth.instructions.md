@@ -1,3 +1,7 @@
+---
+description: Read this file to understand how authentication works in this project and the coding standards to follow when implementing auth-related features.
+---
+
 # Authentication — Clerk
 
 All authentication in this project is handled exclusively by **Clerk v7** (`@clerk/nextjs`). Do **not** implement any other auth method (NextAuth, custom JWT, sessions, etc.).
@@ -14,17 +18,17 @@ All authentication in this project is handled exclusively by **Clerk v7** (`@cle
 
 ```ts
 // proxy.ts
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
-const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
+const isProtectedRoute = createRouteMatcher(['/dashboard(.*)']);
 
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
 
   // Redirect signed-in users away from the homepage
-  if (userId && req.nextUrl.pathname === "/") {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+  if (userId && req.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL('/dashboard', req.url));
   }
 
   // Protect the dashboard
@@ -34,7 +38,7 @@ export default clerkMiddleware(async (auth, req) => {
 });
 
 export const config = {
-  matcher: ["/((?!_next|.*\\..*).*)"],
+  matcher: ['/((?!_next|.*\\..*).*)'],
 };
 ```
 
@@ -60,16 +64,17 @@ import { SignInButton, SignUpButton } from "@clerk/nextjs";
 ## Homepage Redirect
 
 If an authenticated user navigates to `/`, they must be redirected to `/dashboard`. This is handled in `proxy.ts` (see snippet above).
+
 # Authentication — Coding Standards
 
 This project uses **Clerk v7** (`@clerk/nextjs`) for authentication.
 
 ## Setup
 
-| File | Purpose |
-|------|---------|
-| `proxy.ts` | Clerk middleware — protects routes and attaches auth state |
-| `app/layout.tsx` | `<ClerkProvider>` wraps the entire app |
+| File             | Purpose                                                    |
+| ---------------- | ---------------------------------------------------------- |
+| `proxy.ts`       | Clerk middleware — protects routes and attaches auth state |
+| `app/layout.tsx` | `<ClerkProvider>` wraps the entire app                     |
 
 ## `proxy.ts` — Clerk Middleware
 
@@ -77,28 +82,28 @@ The `proxy.ts` file at the project root runs `clerkMiddleware()` on every reques
 
 ```ts
 // proxy.ts
-import { clerkMiddleware } from '@clerk/nextjs/server'
+import { clerkMiddleware } from '@clerk/nextjs/server';
 
-export default clerkMiddleware()
+export default clerkMiddleware();
 
 export const config = {
   matcher: [
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
     '/(api|trpc)(.*)',
   ],
-}
+};
 ```
 
 To protect specific routes (require authentication), use `clerkMiddleware` with route protection logic:
 
 ```ts
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)', '/links(.*)'])
+const isProtectedRoute = createRouteMatcher(['/dashboard(.*)', '/links(.*)']);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) await auth.protect()
-})
+  if (isProtectedRoute(req)) await auth.protect();
+});
 ```
 
 ## `ClerkProvider`
@@ -109,12 +114,12 @@ export default clerkMiddleware(async (auth, req) => {
 
 Import Clerk UI components from `@clerk/nextjs`. They are **Server Components** and can be used directly in layouts and pages:
 
-| Component | Purpose |
-|-----------|---------|
-| `<SignInButton>` | Triggers the Clerk sign-in modal/redirect |
-| `<SignUpButton>` | Triggers the Clerk sign-up modal/redirect |
-| `<UserButton>` | Avatar dropdown for the signed-in user |
-| `<Show when="signed-in">` | Conditionally renders children when the user is signed in |
+| Component                  | Purpose                                                    |
+| -------------------------- | ---------------------------------------------------------- |
+| `<SignInButton>`           | Triggers the Clerk sign-in modal/redirect                  |
+| `<SignUpButton>`           | Triggers the Clerk sign-up modal/redirect                  |
+| `<UserButton>`             | Avatar dropdown for the signed-in user                     |
+| `<Show when="signed-in">`  | Conditionally renders children when the user is signed in  |
 | `<Show when="signed-out">` | Conditionally renders children when the user is signed out |
 
 ```tsx
@@ -134,9 +139,9 @@ import { SignInButton, SignUpButton, UserButton, Show } from '@clerk/nextjs'
 Use `auth()` from `@clerk/nextjs/server` inside Server Components, Server Actions, and Route Handlers:
 
 ```ts
-import { auth } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs/server';
 
-const { userId } = await auth()
+const { userId } = await auth();
 if (!userId) {
   // user is not signed in
 }
@@ -145,9 +150,9 @@ if (!userId) {
 Use `currentUser()` when you need the full user object (name, email, etc.):
 
 ```ts
-import { currentUser } from '@clerk/nextjs/server'
+import { currentUser } from '@clerk/nextjs/server';
 
-const user = await currentUser()
+const user = await currentUser();
 ```
 
 ## Reading Auth State on the Client
@@ -155,12 +160,12 @@ const user = await currentUser()
 Use Clerk's React hooks inside Client Components:
 
 ```tsx
-'use client'
+'use client';
 
-import { useUser, useAuth } from '@clerk/nextjs'
+import { useUser, useAuth } from '@clerk/nextjs';
 
-const { isSignedIn, user } = useUser()
-const { userId } = useAuth()
+const { isSignedIn, user } = useUser();
+const { userId } = useAuth();
 ```
 
 ## Protecting Server Actions
@@ -168,13 +173,13 @@ const { userId } = useAuth()
 **Every Server Action that mutates data must verify authentication.** Check the user's identity at the start of the function — before any database access:
 
 ```ts
-'use server'
+'use server';
 
-import { auth } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs/server';
 
 export async function deleteLink(id: number) {
-  const { userId } = await auth()
-  if (!userId) throw new Error('Unauthorized')
+  const { userId } = await auth();
+  if (!userId) throw new Error('Unauthorized');
 
   // Verify the resource belongs to this user before mutating
   // ...
@@ -188,23 +193,23 @@ Never rely solely on the presence of a UI guard (e.g. hiding a button). Server A
 Apply the same pattern to `route.ts` handlers:
 
 ```ts
-import { auth } from '@clerk/nextjs/server'
-import { NextRequest } from 'next/server'
+import { auth } from '@clerk/nextjs/server';
+import { NextRequest } from 'next/server';
 
 export async function DELETE(request: NextRequest) {
-  const { userId } = await auth()
-  if (!userId) return new Response('Unauthorized', { status: 401 })
+  const { userId } = await auth();
+  if (!userId) return new Response('Unauthorized', { status: 401 });
   // ...
 }
 ```
 
 ## Environment Variables
 
-| Variable | Description |
-|----------|-------------|
+| Variable                            | Description                                          |
+| ----------------------------------- | ---------------------------------------------------- |
 | `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk publishable key (safe to expose to the client) |
-| `CLERK_SECRET_KEY` | Clerk secret key — never expose this to the client |
-| `NEXT_PUBLIC_CLERK_SIGN_IN_URL` | Optional: custom sign-in path (e.g. `/sign-in`) |
-| `NEXT_PUBLIC_CLERK_SIGN_UP_URL` | Optional: custom sign-up path (e.g. `/sign-up`) |
+| `CLERK_SECRET_KEY`                  | Clerk secret key — never expose this to the client   |
+| `NEXT_PUBLIC_CLERK_SIGN_IN_URL`     | Optional: custom sign-in path (e.g. `/sign-in`)      |
+| `NEXT_PUBLIC_CLERK_SIGN_UP_URL`     | Optional: custom sign-up path (e.g. `/sign-up`)      |
 
 Store secret values in `.env.local`. Never commit them.
