@@ -29,3 +29,8 @@ export async function updateLink(
 export async function deleteLink(id: number, userId: string): Promise<void> {
   await db.delete(links).where(and(eq(links.id, id), eq(links.userId, userId)));
 }
+
+export async function getLinkBySlug(slug: string): Promise<Link | null> {
+  const [link] = await db.select().from(links).where(eq(links.slug, slug));
+  return link ?? null;
+}
