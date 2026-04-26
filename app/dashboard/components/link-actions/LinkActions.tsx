@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useTransition } from "react";
-import { Pencil, Trash2 } from "lucide-react";
+import { useState, useTransition } from 'react';
+import { Pencil, Trash2 } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,11 +22,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/alert-dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-import { updateLinkAction, deleteLinkAction } from "./actions";
+import { updateLinkAction, deleteLinkAction } from './actions';
 
 interface LinkActionsProps {
   id: number;
@@ -46,8 +46,12 @@ export function LinkActions({ id, slug, url }: LinkActionsProps) {
     setEditError(null);
 
     startTransition(async () => {
-      const result = await updateLinkAction({ id, url: editUrl, slug: editSlug });
-      if ("error" in result) {
+      const result = await updateLinkAction({
+        id,
+        url: editUrl,
+        slug: editSlug,
+      });
+      if ('error' in result) {
         setEditError(result.error);
       } else {
         setEditOpen(false);
@@ -83,7 +87,9 @@ export function LinkActions({ id, slug, url }: LinkActionsProps) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit link</DialogTitle>
-            <DialogDescription>Update the destination URL or slug for this link.</DialogDescription>
+            <DialogDescription>
+              Update the destination URL or slug for this link.
+            </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleEdit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
@@ -108,9 +114,11 @@ export function LinkActions({ id, slug, url }: LinkActionsProps) {
                 required
               />
             </div>
-            {editError && <p className="text-sm text-destructive">{editError}</p>}
+            {editError && (
+              <p className="text-sm text-destructive">{editError}</p>
+            )}
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Saving..." : "Save changes"}
+              {isPending ? 'Saving...' : 'Save changes'}
             </Button>
           </form>
         </DialogContent>
@@ -127,7 +135,8 @@ export function LinkActions({ id, slug, url }: LinkActionsProps) {
           <AlertDialogHeader>
             <AlertDialogTitle>Delete link</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete <strong>/{slug}</strong>? This action cannot be undone.
+              Are you sure you want to delete <strong>/{slug}</strong>? This
+              action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

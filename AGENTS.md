@@ -1,4 +1,5 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # Agent Instructions — Link Shortener Project
 
 This project uses **Next.js 16** (App Router), which has breaking changes from earlier versions. APIs, file conventions, and behavior may differ significantly from your training data. Always read the relevant guide in `node_modules/next/dist/docs/` before writing code, and heed all deprecation notices.

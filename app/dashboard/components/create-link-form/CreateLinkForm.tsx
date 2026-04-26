@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useTransition } from "react";
-import { Plus } from "lucide-react";
+import { useState, useTransition } from 'react';
+import { Plus } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -11,16 +11,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-import { createLinkAction } from "./actions";
+import { createLinkAction } from './actions';
 
 export function CreateLinkForm() {
   const [open, setOpen] = useState(false);
-  const [url, setUrl] = useState("");
-  const [slug, setSlug] = useState("");
+  const [url, setUrl] = useState('');
+  const [slug, setSlug] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -30,12 +30,12 @@ export function CreateLinkForm() {
 
     startTransition(async () => {
       const result = await createLinkAction({ url, slug });
-      if ("error" in result) {
+      if ('error' in result) {
         setError(result.error);
       } else {
         setOpen(false);
-        setUrl("");
-        setSlug("");
+        setUrl('');
+        setSlug('');
       }
     });
   }
@@ -51,7 +51,9 @@ export function CreateLinkForm() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create a new link</DialogTitle>
-          <DialogDescription>Enter a destination URL and a custom slug for your shortened link.</DialogDescription>
+          <DialogDescription>
+            Enter a destination URL and a custom slug for your shortened link.
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
@@ -78,7 +80,7 @@ export function CreateLinkForm() {
           </div>
           {error && <p className="text-sm text-destructive">{error}</p>}
           <Button type="submit" disabled={isPending}>
-            {isPending ? "Creating..." : "Create Link"}
+            {isPending ? 'Creating...' : 'Create Link'}
           </Button>
         </form>
       </DialogContent>

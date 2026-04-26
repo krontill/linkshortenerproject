@@ -33,11 +33,11 @@ data/
 
 ```ts
 // app/dashboard/components/create-link-form/actions.ts
-"use server";
+'use server';
 
-import { auth } from "@clerk/nextjs/server";
-import { z } from "zod";
-import { createLink } from "@/data/links";
+import { auth } from '@clerk/nextjs/server';
+import { z } from 'zod';
+import { createLink } from '@/data/links';
 
 const schema = z.object({
   url: z.string().url(),
@@ -49,16 +49,16 @@ export async function createLinkAction(data: {
   slug: string;
 }): Promise<{ success: true } | { error: string }> {
   const { userId } = await auth();
-  if (!userId) return { error: "Unauthorized" };
+  if (!userId) return { error: 'Unauthorized' };
 
   const parsed = schema.safeParse(data);
-  if (!parsed.success) return { error: "Invalid input" };
+  if (!parsed.success) return { error: 'Invalid input' };
 
   try {
     await createLink({ userId, ...parsed.data });
     return { success: true };
   } catch {
-    return { error: "Failed to create link" };
+    return { error: 'Failed to create link' };
   }
 }
 ```

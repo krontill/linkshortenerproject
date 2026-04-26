@@ -25,18 +25,18 @@ npx shadcn@latest add input dialog card # multiple at once
 ## Usage
 
 ```tsx
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 ```
 
 ## Icon Usage
 
 ```tsx
-import { LinkIcon, Copy } from "lucide-react";
+import { LinkIcon, Copy } from 'lucide-react';
 
 <Button>
   <LinkIcon className="mr-2 h-4 w-4" />
   Shorten URL
-</Button>
+</Button>;
 ```

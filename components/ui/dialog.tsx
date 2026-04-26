@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { Dialog } from "radix-ui"
-import { X } from "lucide-react"
+import * as React from 'react';
+import { Dialog } from 'radix-ui';
+import { X } from 'lucide-react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
-const DialogRoot = Dialog.Root
-const DialogTrigger = Dialog.Trigger
-const DialogPortal = Dialog.Portal
-const DialogClose = Dialog.Close
+const DialogRoot = Dialog.Root;
+const DialogTrigger = Dialog.Trigger;
+const DialogPortal = Dialog.Portal;
+const DialogClose = Dialog.Close;
 
 function DialogOverlay({
   className,
@@ -18,12 +18,12 @@ function DialogOverlay({
   return (
     <Dialog.Overlay
       className={cn(
-        "fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-        className
+        'fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function DialogContent({
@@ -36,8 +36,8 @@ function DialogContent({
       <DialogOverlay />
       <Dialog.Content
         className={cn(
-          "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
-          className
+          'fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
+          className,
         )}
         {...props}
       >
@@ -48,28 +48,31 @@ function DialogContent({
         </Dialog.Close>
       </Dialog.Content>
     </DialogPortal>
-  )
+  );
 }
 
-function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)}
-      {...props}
-    />
-  )
-}
-
-function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
+function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       className={cn(
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-        className
+        'flex flex-col space-y-1.5 text-center sm:text-left',
+        className,
       )}
       {...props}
     />
-  )
+  );
+}
+
+function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      className={cn(
+        'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 function DialogTitle({
@@ -78,10 +81,13 @@ function DialogTitle({
 }: React.ComponentProps<typeof Dialog.Title>) {
   return (
     <Dialog.Title
-      className={cn("text-lg font-semibold leading-none tracking-tight", className)}
+      className={cn(
+        'text-lg font-semibold leading-none tracking-tight',
+        className,
+      )}
       {...props}
     />
-  )
+  );
 }
 
 function DialogDescription({
@@ -90,10 +96,10 @@ function DialogDescription({
 }: React.ComponentProps<typeof Dialog.Description>) {
   return (
     <Dialog.Description
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn('text-sm text-muted-foreground', className)}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -107,4 +113,4 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
-}
+};
