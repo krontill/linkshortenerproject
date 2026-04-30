@@ -7,7 +7,14 @@ export async function GET(
   { params }: { params: Promise<{ shortcode: string }> },
 ) {
   const { shortcode } = await params;
-  const link = await getLinkBySlug(shortcode);
+
+  let link;
+  try {
+    link = await getLinkBySlug(shortcode);
+  } catch (err) {
+    console.error('[redirect route]', err);
+    notFound();
+  }
 
   if (!link) {
     notFound();

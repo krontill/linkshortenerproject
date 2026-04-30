@@ -7,7 +7,19 @@ import { z } from 'zod';
 import { createLink } from '@/data/links';
 
 const schema = z.object({
-  url: z.string().url(),
+  url: z
+    .string()
+    .url()
+    .refine(
+      (url) => {
+        try {
+          return ['http:', 'https:'].includes(new URL(url).protocol);
+        } catch {
+          return false;
+        }
+      },
+      { message: 'URL must use http or https protocol' },
+    ),
   slug: z
     .string()
     .min(1)
@@ -32,7 +44,15 @@ export async function createLinkAction(data: {
     await createLink({ userId, ...parsed.data });
     revalidatePath('/dashboard');
     return { success: true };
-  } catch {
-    return { error: 'Failed to create link. The slug may already be in use.' };
+  } catch (err) {
+    if (
+      err instanceof Error &&
+      'code' in err &&
+      (err as { code: string }).code === '23505'
+    ) {
+      return { error: 'A link with this slug already exists. Please choose a different slug.' };
+    }
+    console.error('[createLinkAction]', err);
+    return { error: 'Failed to create link. Please try again.' };
   }
 }
